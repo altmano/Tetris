@@ -8,8 +8,6 @@ namespace Tetris
 {
     class AI
     {
-        //int[,] imaginary_tetromino = new int[4, 4];
-        //private int[,] imaginary_gameboard = new int[22, 12];
         private int[] current_round = new int[100];
         public int[,] evaluated_moves = new int[100, 25];
         private int[] next_round = new int[100];
@@ -99,7 +97,6 @@ namespace Tetris
                             imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
                             if (go_deeper == true)
                             {
-                                //evaluated_moves[serialnumber, move] = 4;
                                 move++;
                             }
 
@@ -125,7 +122,6 @@ namespace Tetris
 
                             if (go_deeper == true)
                             {
-                                //evaluated_moves[serialnumber, move] = 4;
                                 move++;
                             }
 
@@ -161,7 +157,6 @@ namespace Tetris
                             imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
                             if (go_deeper == true)
                             {
-                                //evaluated_moves[serialnumber, move] = 4;
                                 move++;
                             }
 
@@ -169,9 +164,7 @@ namespace Tetris
 
 
                     }
-                    move = move;
                     imaginary_gameboard.printtetro(imaginary_tetromino.tetromino, imaginary_tetromino.x, imaginary_tetromino.y);
-                    move = move;
                     if (go_deeper == true)
                     {
                         move = 1;
@@ -203,7 +196,6 @@ namespace Tetris
                     }
 
 
-                    move = move;
                 }
             }
 
@@ -214,15 +206,7 @@ namespace Tetris
             {
                 int position = 0;
                 int largest = 0;
-                /*
-                
-                int second = 0;
-                int third = 0;
-                
-                int largestposition = 0;
-                int secondposition = 0;
-                int thirdposition = 0;
-                */
+
                 for (int i = 0; i < 100; i++)
                 {
                     if(evaluated_moves[i,0] > largest)
@@ -232,59 +216,7 @@ namespace Tetris
                     }
                 }
 
-                    /*
-                    if(current_round[i] > largest)
-                    {
-                        third = second;
-                        thirdposition = secondposition;
-                        second = largest;
-                        secondposition = largestposition;
-                        largest = current_round[i];
-                        largestposition = i;
-                    }else
-                    {
-                        if(current_round[i] > second)
-                        {
-                            third = second;
-                            thirdposition = secondposition;
-                            second = current_round[i];
-                            secondposition = i;
 
-                        }
-                        else
-                        {
-                            if(current_round[i] > third)
-                            {
-                                third = current_round[i];
-                                thirdposition = i;
-                            }
-                        }
-                    }
-                   
-                    
-                }
-
-                if(evaluated_moves[largestposition,0] > evaluated_moves[secondposition, 0])
-                {
-                    if(evaluated_moves[largestposition,0] > evaluated_moves[thirdposition, 0])
-                    {
-                        position = largestposition;
-                    }else
-                    {
-                        position = thirdposition;
-                    }
-                }else
-                {
-                    if(evaluated_moves[secondposition,0] > evaluated_moves[thirdposition,0])
-                    {
-                        position = secondposition;
-                    }else
-                    {
-                        position = thirdposition;
-                    }
-
-                }
-                 */
                     for (int i = 1; i < 25; i++)
                 {
                     solution[i - 1] = evaluated_moves[position, i];
@@ -317,9 +249,7 @@ namespace Tetris
             if(imaginary_gameboard.game_over == false)
             {
                 number_of_gaps = gaps(gameboard);
-                x = 1000 -  number_of_gaps;
-                //x = x + total;
-                
+                x = 1000 -  number_of_gaps;              
                 x = x - height_difference(gameboard);
             }
             else
