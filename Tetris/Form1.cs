@@ -16,7 +16,8 @@ namespace Tetris
         private Tetromino tetromino = new Tetromino();
         private Tetromino next_tetromino = new Tetromino();
         private AI ai = new AI();
-        private Old_AI oldai = new Old_AI();
+
+        //private Old_AI oldai = new Old_AI();
         //private bool turn = true;
         public Form1()
         {
@@ -50,8 +51,11 @@ namespace Tetris
                 copytetro();
                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                 gameboard.score = 0;
+                button3.BackColor = Color.Red;
 
-            }else
+
+            }
+            else
             {
                 tetromino.print = true;
             }
@@ -64,10 +68,14 @@ namespace Tetris
             if(ai.enabled == false)
             {
                 ai.enabled = true;
+                button3.BackColor = Color.Green;
+
             }
             else
             {
                 ai.enabled = false;
+                button3.BackColor = Color.Red;
+
             }
         }
 
@@ -110,25 +118,25 @@ namespace Tetris
 
                         for (int i = 0; i < 25; i++)
                         {
-                            if(ai.solution[i] == 1 &&  (gameboard.game_over == false))
+                            if (ai.Solution[i] == 1 &&  (gameboard.game_over == false))
                             {
                                 tetromino.rotate_right(gameboard.gameboard);
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
-                            if(ai.solution[i] == 2 && (gameboard.game_over == false))
+                            if(ai.Solution[i] == 2 && (gameboard.game_over == false))
                             {
                                 tetromino.move_left(gameboard.gameboard);
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
-                            if(ai.solution[i] == 3 && (gameboard.game_over == false))
+                            if(ai.Solution[i] == 3 && (gameboard.game_over == false))
                             {
                                 tetromino.move_right(gameboard.gameboard);
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
-                            if(ai.solution[i] == 4)
+                            if(ai.Solution[i] == 4)
                             {
                                 tetromino.move_down(gameboard.gameboard);
                                 if (tetromino.print == true)

@@ -10,10 +10,8 @@ namespace Tetris
     {
         private int[] current_round = new int[100];
         public int[,] evaluated_moves = new int[100, 25];
-        public int[,] next_evaluated_moves = new int[100, 25];
         private int[] next_round = new int[100];
-        public int[] solution = new int[25];
-        public int[] next_solution = new int[25];
+        private int[] solution = new int[25];
         private Tetromino imaginary_tetromino = new Tetromino();
         private Gameboard imaginary_gameboard = new Gameboard();
         
@@ -23,6 +21,8 @@ namespace Tetris
         public bool enabled = false;
         private int total = 0;
         private int secondary = 0;
+
+        public int[] Solution { get => solution; set => solution = value; }
 
         //
 
@@ -222,7 +222,7 @@ namespace Tetris
 
                     for (int i = 1; i < 25; i++)
                 {
-                    solution[i - 1] = evaluated_moves[position, i];
+                    Solution[i - 1] = evaluated_moves[position, i];
                 }
             }
             else
