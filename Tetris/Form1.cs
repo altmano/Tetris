@@ -46,7 +46,7 @@ namespace Tetris
             gameboard.render(e.Graphics);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Start_button_Click(object sender, EventArgs e)
         {
             gameboard.setup();
             tetromino.generate_new();
@@ -70,7 +70,7 @@ namespace Tetris
             Net.Refresh();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void AI_button_Click(object sender, EventArgs e)
         {
             if(ai.IsEnabled())
             {
@@ -168,9 +168,7 @@ namespace Tetris
 
         private void button3_Click(object sender, EventArgs e)
         {
-            tetromino.move_left(gameboard.GetGameboard());
-            gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-            Net.Refresh();
+
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -240,7 +238,7 @@ namespace Tetris
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Decrease_Speed_button_Click(object sender, EventArgs e)
         {
             if(timer1.Interval > 25)
             {
@@ -253,7 +251,7 @@ namespace Tetris
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Increase_Speed_button_Click(object sender, EventArgs e)
         {
             timer1.Interval = timer1.Interval + 25;
 
