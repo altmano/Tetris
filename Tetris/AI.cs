@@ -10,13 +10,16 @@ namespace Tetris
     {
         private int[] current_round = new int[100];
         public int[,] evaluated_moves = new int[100, 25];
+        public int[,] next_evaluated_moves = new int[100, 25];
         private int[] next_round = new int[100];
         public int[] solution = new int[25];
+        public int[] next_solution = new int[25];
         private Tetromino imaginary_tetromino = new Tetromino();
         private Gameboard imaginary_gameboard = new Gameboard();
         
         private int serialnumber = 0;
         private int move = 1;
+        private int next_move = 1;
         public bool enabled = false;
         private int total = 0;
         private int secondary = 0;
@@ -55,19 +58,19 @@ namespace Tetris
                     copy_board(real_gameboard);
                     imaginary_gameboard.game_over = false;
 
-                    imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
-                    if (go_deeper == true)
+                    for(int i = 0; i < 2; i++)
                     {
-                        evaluated_moves[serialnumber, move] = 4;
-                        move++;
+                        imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
+                        if (go_deeper == true)
+                        {
+                            evaluated_moves[serialnumber, move] = 4;
+                            move++;
+                        }
+
                     }
 
-                    imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
-                    if (go_deeper == true)
-                    {
-                        evaluated_moves[serialnumber, move] = 4;
-                        move++;
-                    }
+
+
                     if (l<0)
                     {
 

@@ -17,7 +17,7 @@ namespace Tetris
         private Tetromino next_tetromino = new Tetromino();
         private AI ai = new AI();
         private Old_AI oldai = new Old_AI();
-        private bool turn = true;
+        //private bool turn = true;
         public Form1()
         {
             InitializeComponent();
@@ -83,7 +83,9 @@ namespace Tetris
                     copytetro();
                     if(ai.enabled == true)
                     {
-                        if(turn == true)
+                        ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
+                        /*
+                        if (turn == true)
                         {
                             ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
                             button3.BackColor = Color.Green; 
@@ -92,20 +94,22 @@ namespace Tetris
                         else
                         {
                             button3.BackColor = Color.Red;
-
+                            ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
+                            
                             oldai.evaluate(tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard);
                             for(int i = 0; i < 25; i++)
                             {
                                 ai.solution[i] = oldai.solution[i];
                             }
-                            turn = true;
+                            
+                        turn = true;
                         }
+                        */
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
 
 
                         for (int i = 0; i < 25; i++)
                         {
-                            //int testovace = ai.evaluated_moves[1, 1];
                             if(ai.solution[i] == 1 &&  (gameboard.game_over == false))
                             {
                                 tetromino.rotate_right(gameboard.gameboard);
