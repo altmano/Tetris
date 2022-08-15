@@ -60,7 +60,7 @@ namespace Tetris
 
                     for(int i = 0; i < 2; i++)
                     {
-                        imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
+                        imaginary_tetromino.move_down(imaginary_gameboard.GetGameboard());
                         if (go_deeper == true)
                         {
                             evaluated_moves[serialnumber, move] = 4;
@@ -71,7 +71,7 @@ namespace Tetris
 
                     for (int n = k; n > 0; n--)
                     {
-                        imaginary_tetromino.rotate_right(imaginary_gameboard.gameboard);
+                        imaginary_tetromino.rotate_right(imaginary_gameboard.GetGameboard());
                         if (go_deeper == true)
                         {
                             evaluated_moves[serialnumber, move] = 1;
@@ -84,7 +84,7 @@ namespace Tetris
                     {  
                         for(int m = l; m < 0; m++)
                         {
-                            imaginary_tetromino.move_left(imaginary_gameboard.gameboard);
+                            imaginary_tetromino.move_left(imaginary_gameboard.GetGameboard());
                             if (go_deeper == true)
                             {
                                 evaluated_moves[serialnumber, move] = 2;
@@ -97,7 +97,7 @@ namespace Tetris
                     {
                         for(int m = 0; m < l; m++)
                         {
-                            imaginary_tetromino.move_right(imaginary_gameboard.gameboard);
+                            imaginary_tetromino.move_right(imaginary_gameboard.GetGameboard());
                             if(go_deeper == true)
                             {
                                 evaluated_moves[serialnumber, move] = 3;
@@ -109,7 +109,7 @@ namespace Tetris
 
                     while (imaginary_tetromino.print == false)
                     {
-                        imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
+                        imaginary_tetromino.move_down(imaginary_gameboard.GetGameboard());
                         if (go_deeper == true)
                         {
                             move++;
@@ -121,7 +121,7 @@ namespace Tetris
                     if (go_deeper == true)
                     {
                         move = 1;
-                        current_round[serialnumber] = evaluation_function(imaginary_gameboard.gameboard);
+                        current_round[serialnumber] = evaluation_function(imaginary_gameboard.GetGameboard());
                         if(current_round[serialnumber] == 0)
                         {
                             evaluated_moves[serialnumber,0] = 0;
@@ -132,7 +132,7 @@ namespace Tetris
                             {
                                 for(int j = 0; j < 12; j++)
                                 {
-                                    copyofgameboard[i, j] = imaginary_gameboard.gameboard[i, j];
+                                    copyofgameboard[i, j] = imaginary_gameboard.GetGameboard()[i, j];
                                 }
                             }
                             evaluate(real_tetromino, next_tetromino, x, y, copyofgameboard, false);
@@ -144,7 +144,7 @@ namespace Tetris
                     }
                     else
                     {
-                        next_round[secondary] = evaluation_function(imaginary_gameboard.gameboard);
+                        next_round[secondary] = evaluation_function(imaginary_gameboard.GetGameboard());
                         secondary++;
                     }
 
@@ -246,7 +246,7 @@ namespace Tetris
             {
                 for (int j = 0; j < 12; j++)
                 {
-                    imaginary_gameboard.gameboard[i, j] = real_gameboard[i, j];
+                    imaginary_gameboard.GetGameboard()[i, j] = real_gameboard[i, j];
 
                 }
             }

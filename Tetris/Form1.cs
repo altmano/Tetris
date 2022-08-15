@@ -34,6 +34,10 @@ namespace Tetris
         {
             tetromino.print = false;
             gameboard.setup();
+            tetromino.generate_new();
+            next_tetromino.generate_new();
+            timer1.Enabled = false;
+
             Net.Refresh();
         }
 
@@ -82,7 +86,7 @@ namespace Tetris
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tetromino.move_down(gameboard.gameboard);
+            tetromino.move_down(gameboard.GetGameboard());
             if(tetromino.print == true)
             {
                 gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
@@ -92,7 +96,7 @@ namespace Tetris
                     copytetro();
                     if(ai.IsEnabled())
                     {
-                        ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
+                        ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.GetGameboard(), true);
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
 
 
@@ -100,25 +104,25 @@ namespace Tetris
                         {
                             if (ai.Solution[i] == 1 &&  (gameboard.game_over == false))
                             {
-                                tetromino.rotate_right(gameboard.gameboard);
+                                tetromino.rotate_right(gameboard.GetGameboard());
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
                             if(ai.Solution[i] == 2 && (gameboard.game_over == false))
                             {
-                                tetromino.move_left(gameboard.gameboard);
+                                tetromino.move_left(gameboard.GetGameboard());
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
                             if(ai.Solution[i] == 3 && (gameboard.game_over == false))
                             {
-                                tetromino.move_right(gameboard.gameboard);
+                                tetromino.move_right(gameboard.GetGameboard());
                                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                                 Net.Refresh();
                             }
                             if(ai.Solution[i] == 4)
                             {
-                                tetromino.move_down(gameboard.gameboard);
+                                tetromino.move_down(gameboard.GetGameboard());
                                 if (tetromino.print == true)
                                 {
                                     gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
@@ -164,7 +168,7 @@ namespace Tetris
 
         private void button3_Click(object sender, EventArgs e)
         {
-            tetromino.move_left(gameboard.gameboard);
+            tetromino.move_left(gameboard.GetGameboard());
             gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
             Net.Refresh();
 
@@ -176,7 +180,7 @@ namespace Tetris
                 if (keyData == Keys.Up)
                 {
 
-                    tetromino.rotate_right(gameboard.gameboard);
+                    tetromino.rotate_right(gameboard.GetGameboard());
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                         Net.Refresh();
                    
@@ -187,7 +191,7 @@ namespace Tetris
                 if (keyData == Keys.Down)
                 {
                     
-                        tetromino.move_down(gameboard.gameboard);
+                        tetromino.move_down(gameboard.GetGameboard());
                         if (tetromino.print == true)
                         {
                             gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
@@ -205,14 +209,16 @@ namespace Tetris
                         }
 
                         Net.Refresh();
-                }
-
                     return true;
                 }
+
+                    
+                
                 //left arrow
                 if (keyData == Keys.Left)
                 {
-                        tetromino.move_left(gameboard.gameboard);
+
+                        tetromino.move_left(gameboard.GetGameboard());
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                         Net.Refresh();
                     return true;
@@ -221,16 +227,16 @@ namespace Tetris
                 if (keyData == Keys.Right)
                 {
                    
-                        tetromino.move_right(gameboard.gameboard);
+                        tetromino.move_right(gameboard.GetGameboard());
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
                         Net.Refresh();
                     
 
                     return true;
                 }
-            
-                
-           
+
+
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
