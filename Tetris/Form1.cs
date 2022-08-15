@@ -45,8 +45,10 @@ namespace Tetris
         private void button1_Click(object sender, EventArgs e)
         {
             gameboard.setup();
+            tetromino.generate_new();
             next_tetromino.generate_new();
-            if(ai.enabled == false)
+            /*
+            if(!ai.IsEnabled())
             {
                 copytetro();
                 gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
@@ -59,23 +61,22 @@ namespace Tetris
             {
                 tetromino.print = true;
             }
+            */
             timer1.Enabled = true;
             Net.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(ai.enabled == false)
+            if(ai.IsEnabled())
             {
-                ai.enabled = true;
-                button3.BackColor = Color.Green;
-
+                ai.Disable();
+                button3.BackColor = Color.Red;
             }
             else
             {
-                ai.enabled = false;
-                button3.BackColor = Color.Red;
-
+                ai.Enable();
+                button3.BackColor = Color.Green;
             }
         }
 
@@ -85,34 +86,13 @@ namespace Tetris
             if(tetromino.print == true)
             {
                 gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                label1.Text = gameboard.score.ToString();
+                label1.Text = gameboard.GetScore().ToString();
                 if(gameboard.game_over == false)
                 {
                     copytetro();
-                    if(ai.enabled == true)
+                    if(ai.IsEnabled())
                     {
                         ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
-                        /*
-                        if (turn == true)
-                        {
-                            ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
-                            button3.BackColor = Color.Green; 
-                            turn = false;
-                        }
-                        else
-                        {
-                            button3.BackColor = Color.Red;
-                            ai.evaluate(tetromino.tetromino, next_tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard, true);
-                            
-                            oldai.evaluate(tetromino.tetromino, tetromino.x, tetromino.y, gameboard.gameboard);
-                            for(int i = 0; i < 25; i++)
-                            {
-                                ai.solution[i] = oldai.solution[i];
-                            }
-                            
-                        turn = true;
-                        }
-                        */
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
 
 
@@ -142,7 +122,7 @@ namespace Tetris
                                 if (tetromino.print == true)
                                 {
                                     gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                                    label1.Text = gameboard.score.ToString();
+                                    label1.Text = gameboard.GetScore().ToString();
                                     if (gameboard.game_over == false)
                                     {
                                         tetromino.generate_new();
@@ -191,73 +171,66 @@ namespace Tetris
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            //up arrow 
-            if (keyData == Keys.Up)
+            if (!ai.IsEnabled())
             {
-                if(ai.enabled == false)
+                if (keyData == Keys.Up)
                 {
+
                     tetromino.rotate_right(gameboard.gameboard);
-                    gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                    Net.Refresh();
-                }
-
-                return true;
-            }
-            //down arrow
-            if (keyData == Keys.Down)
-            {
-                if (ai.enabled == false)
-                {
-                    tetromino.move_down(gameboard.gameboard);
-                    if (tetromino.print == true)
-                    {
-                        gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                        label1.Text = gameboard.score.ToString();
-                        if (gameboard.game_over == false)
-                        {
-                            tetromino.generate_new();
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("game over");
-                            timer1.Enabled = false;
-                        }
-                    }
-                    else
-                    {
                         gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
+                        Net.Refresh();
+                   
 
-                    }
-                    Net.Refresh();
+                    return true;
                 }
-               
-                return true;
-            }
-            //left arrow
-            if (keyData == Keys.Left)
-            {
-                if(ai.enabled == false)
+                //down arrow
+                if (keyData == Keys.Down)
                 {
-                    tetromino.move_left(gameboard.gameboard);
-                    gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                    Net.Refresh();
+                    
+                        tetromino.move_down(gameboard.gameboard);
+                        if (tetromino.print == true)
+                        {
+                            gameboard.printtetro(tetromino.tetromino, tetromino.x, tetromino.y);
+                            label1.Text = gameboard.GetScore().ToString();
+                            if (gameboard.game_over == false)
+                            {
+                                tetromino.generate_new();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("game over");
+                                timer1.Enabled = false;
+                            }
+                        }
+
+                        Net.Refresh();
                 }
 
-                return true;
-            }
-            //right arrow
-            if (keyData == Keys.Right)
-            {
-                if(ai.enabled == false)
+                    return true;
+                }
+                //left arrow
+                if (keyData == Keys.Left)
                 {
-                    tetromino.move_right(gameboard.gameboard);
-                    gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
-                    Net.Refresh();
+                        tetromino.move_left(gameboard.gameboard);
+                        gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
+                        Net.Refresh();
+                    return true;
                 }
+                //right arrow
+                if (keyData == Keys.Right)
+                {
+                   
+                        tetromino.move_right(gameboard.gameboard);
+                        gameboard.addtetro(tetromino.tetromino, tetromino.x, tetromino.y);
+                        Net.Refresh();
+                    
 
-                return true;
-            }
+                    return true;
+                }
+            
+                
+           
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

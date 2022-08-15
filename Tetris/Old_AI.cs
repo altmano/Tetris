@@ -14,7 +14,7 @@ namespace Tetris
         private Gameboard imaginary_gameboard = new Gameboard();
         private int serialnumber = 0;
         private int move = 1;
-        public bool enabled = false;
+        private bool enabled = false;
         private int total = 0;
 
         //
@@ -270,6 +270,7 @@ namespace Tetris
             }
             return x;
         }
+
 
     }
 }

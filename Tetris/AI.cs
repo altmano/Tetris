@@ -17,8 +17,8 @@ namespace Tetris
         
         private int serialnumber = 0;
         private int move = 1;
-        private int next_move = 1;
-        public bool enabled = false;
+
+        private bool enabled = false;
         private int total = 0;
         private int secondary = 0;
 
@@ -69,22 +69,19 @@ namespace Tetris
 
                     }
 
+                    for (int n = k; n > 0; n--)
+                    {
+                        imaginary_tetromino.rotate_right(imaginary_gameboard.gameboard);
+                        if (go_deeper == true)
+                        {
+                            evaluated_moves[serialnumber, move] = 1;
+                            move++;
+                        }
 
+                    }
 
                     if (l<0)
-                    {
-
-
-                        for (int n = k; n > 0; n--)
-                        {
-                            imaginary_tetromino.rotate_right(imaginary_gameboard.gameboard);
-                            if(go_deeper == true)
-                            {
-                                evaluated_moves[serialnumber, move] = 1;
-                                move++;
-                            }
-
-                        }
+                    {  
                         for(int m = l; m < 0; m++)
                         {
                             imaginary_tetromino.move_left(imaginary_gameboard.gameboard);
@@ -95,56 +92,9 @@ namespace Tetris
                             }
 
                         }
-                        while(imaginary_tetromino.print == false)
-                        {
-                            imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
-                            if (go_deeper == true)
-                            {
-                                move++;
-                            }
-
-                        }
-
-
-                    }
-                    if(l == 0)
-                    {
-                        for (int n = k; n > 0; n--)
-                        {
-                            imaginary_tetromino.rotate_right(imaginary_gameboard.gameboard);
-                            if(go_deeper == true)
-                            {
-                                evaluated_moves[serialnumber, move] = 1;
-                                move++;
-                            }
-
-                        }
-                        while (imaginary_tetromino.print == false)
-                        {
-                            imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
-
-                            if (go_deeper == true)
-                            {
-                                move++;
-                            }
-
-                        }
-
-
                     }
                     if(l > 0)
                     {
-
-                        for (int n = k; n > 0; n--)
-                        {
-                            imaginary_tetromino.rotate_right(imaginary_gameboard.gameboard);
-                            if(go_deeper == true)
-                            {
-                                evaluated_moves[serialnumber, move] = 1;
-                                move++;
-                            }
-
-                        }
                         for(int m = 0; m < l; m++)
                         {
                             imaginary_tetromino.move_right(imaginary_gameboard.gameboard);
@@ -155,18 +105,18 @@ namespace Tetris
                             }
 
                         }
-                        while (imaginary_tetromino.print == false)
-                        {
-                            imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
-                            if (go_deeper == true)
-                            {
-                                move++;
-                            }
+                    }
 
+                    while (imaginary_tetromino.print == false)
+                    {
+                        imaginary_tetromino.move_down(imaginary_gameboard.gameboard);
+                        if (go_deeper == true)
+                        {
+                            move++;
                         }
 
-
                     }
+
                     imaginary_gameboard.printtetro(imaginary_tetromino.tetromino, imaginary_tetromino.x, imaginary_tetromino.y);
                     if (go_deeper == true)
                     {
@@ -358,6 +308,21 @@ namespace Tetris
                 }
             }
             return x;
+        }
+
+        public void Enable()
+        {
+            enabled = true;
+        }
+
+        public void Disable()
+        {
+            enabled = false;
+        }
+
+        public bool IsEnabled()
+        {
+            return enabled;
         }
 
     }
