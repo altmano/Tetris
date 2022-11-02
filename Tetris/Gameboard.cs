@@ -9,10 +9,10 @@ namespace Tetris
 {
     class Gameboard
     {
-        public int[,] gameboard = new int[22, 12];
+        private int[,] gameboard = new int[22, 12];
         const int size = 18;
         const int gap = 1;
-        public int score = 0;
+        private int score = 0;
         public bool game_over = false;
         public void setup()
         {
@@ -35,6 +35,14 @@ namespace Tetris
                     gameboard[i, j] = 0;
                 }
             }
+        }
+        public int GetScore()
+        {
+            return score;
+        }
+        public int[,] GetGameboard ()
+        {
+            return gameboard;
         }
         public  void addtetro(int [,] tetromino, int x, int y)
         {
